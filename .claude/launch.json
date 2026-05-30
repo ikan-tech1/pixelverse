@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "pixelverse",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "pnpm install && pnpm exec vite --port 5173 --strictPort"],
+      "port": 5173
+    }
+  ]
+}
