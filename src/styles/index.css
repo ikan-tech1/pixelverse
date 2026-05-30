@@ -2189,3 +2189,334 @@
   border-color: var(--accent);
   color: var(--accent);
 }
+
+/* ================================================================== *
+ * SETTINGS FAB
+ * ================================================================== */
+.settings-fab {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top));
+  right: 12px;
+  z-index: 55;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--bg-2) 72%, transparent);
+  border: 2px solid var(--line);
+  box-shadow: 0 0 0 2px var(--bg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.settings-fab:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.settings-fab:active {
+  transform: translateY(1px);
+}
+
+/* ================================================================== *
+ * WORLDS — the living museum
+ * ================================================================== */
+.worlds {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+.world-panel {
+  position: absolute;
+  inset: 0;
+  animation: worldIn 0.45s ease both;
+}
+@keyframes worldIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.world-stage {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+  cursor: crosshair;
+}
+.world-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  image-rendering: pixelated;
+}
+.world-top {
+  position: fixed;
+  top: max(14px, env(safe-area-inset-top));
+  left: 16px;
+  right: 62px;
+  z-index: 40;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+.world-id {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-shadow:
+    0 1px 6px var(--bg),
+    0 0 10px var(--bg);
+}
+.world-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--ink);
+}
+.world-blurb {
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.world-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+}
+.world-count {
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: var(--ink-dim);
+}
+.round-btn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--bg-2) 70%, transparent);
+  border: 2px solid var(--line);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.round-btn:active {
+  transform: translateY(1px);
+}
+.world-rail {
+  position: fixed;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.wp-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  background: color-mix(in srgb, var(--line) 85%, transparent);
+  border: none;
+  cursor: pointer;
+  transition:
+    background 0.1s steps(2),
+    height 0.1s steps(2);
+}
+.wp-dot.is-on {
+  background: var(--accent);
+  height: 16px;
+  box-shadow: 0 0 8px var(--accent);
+}
+.world-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(90px + env(safe-area-inset-bottom));
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+}
+.world-hint {
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  padding: 5px 10px;
+}
+.world-dots {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  background: color-mix(in srgb, var(--bg-2) 80%, transparent);
+  border: 2px solid var(--line);
+  box-shadow: 0 0 0 2px var(--bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  max-width: calc(100vw - 32px);
+  overflow-x: auto;
+}
+.world-dot {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 2px solid var(--line);
+  cursor: pointer;
+}
+.world-dot.is-on {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.world-dot--erase {
+  background-image:
+    linear-gradient(45deg, var(--ink-dim) 25%, transparent 25%, transparent 75%, var(--ink-dim) 75%),
+    linear-gradient(45deg, var(--ink-dim) 25%, transparent 25%, transparent 75%, var(--ink-dim) 75%);
+  background-position: 0 0, 4px 4px;
+  background-size: 8px 8px;
+  background-color: var(--bg-2);
+}
+.world-pill {
+  flex: 0 0 auto;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 2px solid var(--line);
+  padding: 7px 10px;
+  cursor: pointer;
+}
+.world-pill.is-on {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ================================================================== *
+ * MAKE — finger doodle
+ * ================================================================== */
+.make {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+.make-canvas {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.make-controls {
+  flex: 0 0 auto;
+  margin: 0 10px calc(82px + env(safe-area-inset-bottom));
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: color-mix(in srgb, var(--bg-2) 92%, transparent);
+  border: 2px solid var(--line);
+  box-shadow:
+    0 0 0 2px var(--bg),
+    0 -6px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.make-swatches {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+.mk-swatch {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 2px solid var(--line);
+  cursor: pointer;
+}
+.mk-swatch.is-on {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.mk-swatch--erase {
+  background-image:
+    linear-gradient(45deg, var(--ink-dim) 25%, transparent 25%, transparent 75%, var(--ink-dim) 75%),
+    linear-gradient(45deg, var(--ink-dim) 25%, transparent 25%, transparent 75%, var(--ink-dim) 75%);
+  background-position: 0 0, 5px 5px;
+  background-size: 10px 10px;
+  background-color: var(--bg-2);
+}
+.make-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.mk-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 38px;
+  padding: 0 11px;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 2px solid var(--line);
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  touch-action: manipulation;
+}
+.mk-btn.is-on {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.mk-btn:active {
+  transform: translateY(1px);
+}
+.mk-btn--save {
+  margin-left: auto;
+  background: var(--accent);
+  color: var(--bg);
+  border-color: color-mix(in srgb, var(--accent) 70%, #000);
+}
+.mk-slider {
+  flex: 1 1 70px;
+  min-width: 60px;
+  accent-color: var(--accent);
+}
+.make-notice {
+  position: fixed;
+  left: 50%;
+  bottom: calc(150px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 60;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  color: var(--ink);
+  padding: 8px 16px;
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 40%, transparent);
+  animation: pop 0.3s steps(4) both;
+}

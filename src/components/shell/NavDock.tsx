@@ -4,11 +4,11 @@ import { cn } from '@/lib/cn';
 import { useSfx } from '@/lib/useSfx';
 
 const ITEMS: { to: string; icon: IconName; label: string; end?: boolean }[] = [
-  { to: '/', icon: 'home', label: 'Home', end: true },
-  { to: '/studio', icon: 'studio', label: 'Create' },
+  { to: '/', icon: 'spark', label: 'Worlds', end: true },
   { to: '/play', icon: 'play', label: 'Play' },
   { to: '/gallery', icon: 'gallery', label: 'Gallery' },
   { to: '/daily', icon: 'daily', label: 'Daily' },
+  { to: '/make', icon: 'studio', label: 'Make' },
 ];
 
 /** Floating, glassy bottom dock for hopping between the main areas. */

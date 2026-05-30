@@ -1,21 +1,18 @@
 import { useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useSettings } from '@/store/settings';
 import { themeBg } from '@/data/themes';
 import { cn } from '@/lib/cn';
 import { NavDock } from './NavDock';
+import { PixelIcon } from '@/components/ui/PixelIcon';
+import { useSfx } from '@/lib/useSfx';
 
 export default function AppShell() {
   const theme = useSettings((s) => s.theme);
   const scanlines = useSettings((s) => s.scanlines);
   const { pathname } = useLocation();
-
-  // Home is the hub (its own orbs); Studio + playground toys run full-screen with
-  // their own controls. The floating dock only appears on the section screens.
-  const isHome = pathname === '/';
-  const isStudio = pathname.startsWith('/studio');
-  const isToy = pathname.startsWith('/play/');
-  const showDock = !isHome && !isStudio && !isToy;
+  const play = useSfx();
+  const onSettings = pathname === '/settings';
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -24,8 +21,13 @@ export default function AppShell() {
 
   return (
     <div className={cn('app-root', scanlines && 'scanlines')}>
+      {!onSettings && (
+        <Link to="/settings" className="settings-fab" aria-label="Settings" onClick={() => play('tap')}>
+          <PixelIcon name="settings" size={18} />
+        </Link>
+      )}
       <Outlet />
-      {showDock && <NavDock />}
+      <NavDock />
     </div>
   );
 }
