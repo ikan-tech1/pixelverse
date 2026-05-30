@@ -20,7 +20,16 @@ const TOYS: Toy[] = [
 export default function Playground() {
   const play = useSfx();
   return (
-    <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 18 }}>
+    <div
+      style={{
+        maxWidth: 1000,
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 18,
+        padding: '20px clamp(14px,4vw,28px) 128px',
+      }}
+    >
       <header style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         <span className="eyebrow">▸ Playground</span>
         <h1 className="section-title">Play around</h1>

@@ -26,7 +26,16 @@ export default function Daily() {
   }
 
   return (
-    <div style={{ maxWidth: 760, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 20 }}>
+    <div
+      style={{
+        maxWidth: 760,
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+        padding: '20px clamp(14px,4vw,28px) 128px',
+      }}
+    >
       <header style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           <span className="eyebrow">▸ Daily challenge · {today.key}</span>

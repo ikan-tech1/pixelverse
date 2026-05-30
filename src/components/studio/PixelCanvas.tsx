@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useEditor } from '@/store/editor';
+import { useSettings } from '@/store/settings';
 import { compositeFrame, toImageData } from '@/pixel/composite';
+import { haptic } from '@/lib/haptics';
 import { PixelIcon } from '@/components/ui/PixelIcon';
 
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
@@ -31,6 +33,17 @@ export function PixelCanvas() {
   const [scale, setScale] = useState(12);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [panMode, setPanMode] = useState(false);
+  const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([]);
+  const rippleId = useRef(0);
+  const hapticsOn = useSettings((s) => s.haptics);
+
+  const addRipple = (clientX: number, clientY: number) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const id = rippleId.current++;
+    setRipples((r) => [...r.slice(-8), { id, x: clientX - rect.left, y: clientY - rect.top }]);
+    window.setTimeout(() => setRipples((r) => r.filter((p) => p.id !== id)), 430);
+  };
 
   // transient interaction refs
   const pointers = useRef<Map<number, { x: number; y: number }>>(new Map());
@@ -159,6 +172,8 @@ export function PixelCanvas() {
     drawing.current = true;
     lastCell.current = { x, y };
     useEditor.getState().pointerDown(x, y);
+    addRipple(e.clientX, e.clientY);
+    haptic('soft', hapticsOn);
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
@@ -270,6 +285,10 @@ export function PixelCanvas() {
           aria-hidden="true"
         />
       )}
+
+      {ripples.map((r) => (
+        <span key={r.id} className="paint-ripple" style={{ left: r.x, top: r.y }} aria-hidden="true" />
+      ))}
 
       <div className="canvas-controls">
         <button

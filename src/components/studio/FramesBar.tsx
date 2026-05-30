@@ -5,7 +5,7 @@ import { PixelIcon } from '@/components/ui/PixelIcon';
 import { cn } from '@/lib/cn';
 import { useSfx } from '@/lib/useSfx';
 
-export function FramesBar() {
+export function FramesBar({ bare }: { bare?: boolean } = {}) {
   const doc = useEditor((s) => s.doc);
   const revision = useEditor((s) => s.revision);
   const onionSkin = useEditor((s) => s.onionSkin);
@@ -49,7 +49,7 @@ export function FramesBar() {
   }, [playing, frameCount]);
 
   return (
-    <div className="frames-bar px-panel">
+    <div className={cn('frames-bar', !bare && 'px-panel')}>
       <div className="frames-controls">
         <button
           className={cn('icon-btn', playing && 'is-on')}

@@ -3,7 +3,7 @@ import { PixelIcon } from '@/components/ui/PixelIcon';
 import { cn } from '@/lib/cn';
 import { useSfx } from '@/lib/useSfx';
 
-export function LayersPanel() {
+export function LayersPanel({ bare }: { bare?: boolean } = {}) {
   const layers = useEditor((s) => s.doc.layers);
   const activeLayer = useEditor((s) => s.doc.activeLayer);
   const setActiveLayer = useEditor((s) => s.setActiveLayer);
@@ -14,7 +14,7 @@ export function LayersPanel() {
   const play = useSfx();
 
   return (
-    <div className="layers-panel px-panel">
+    <div className={cn('layers-panel', !bare && 'px-panel')}>
       <div className="panel-head">
         <PixelIcon name="layers" size={14} />
         <span className="eyebrow">Layers</span>

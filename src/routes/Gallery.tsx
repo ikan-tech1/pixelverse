@@ -67,7 +67,16 @@ export default function Gallery() {
   }
 
   return (
-    <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <div
+      style={{
+        maxWidth: 1100,
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 24,
+        padding: '20px clamp(14px,4vw,28px) 128px',
+      }}
+    >
       <header style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         <span className="eyebrow">▸ Gallery</span>
         <h1 className="section-title">Your creations</h1>

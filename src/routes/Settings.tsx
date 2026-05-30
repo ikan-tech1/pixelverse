@@ -6,12 +6,31 @@ import { cn } from '@/lib/cn';
 import { useSfx } from '@/lib/useSfx';
 
 export default function Settings() {
-  const { theme, scanlines, sound, pixelCursor, setTheme, setScanlines, setSound, setPixelCursor } =
-    useSettings();
+  const {
+    theme,
+    scanlines,
+    sound,
+    haptics,
+    pixelCursor,
+    setTheme,
+    setScanlines,
+    setSound,
+    setHaptics,
+    setPixelCursor,
+  } = useSettings();
   const play = useSfx();
 
   return (
-    <div style={{ maxWidth: 820, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <div
+      style={{
+        maxWidth: 820,
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 24,
+        padding: '20px clamp(14px,4vw,28px) 128px',
+      }}
+    >
       <header style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         <span className="eyebrow">▸ Settings</span>
         <h1 className="section-title">Make it yours</h1>
@@ -59,6 +78,7 @@ export default function Settings() {
         <div className="px-panel" style={{ padding: '8px 16px', display: 'flex', flexDirection: 'column' }}>
           <Toggle checked={scanlines} onChange={setScanlines} label="CRT scanlines" />
           <Toggle checked={sound} onChange={setSound} label="Chiptune sound effects" />
+          <Toggle checked={haptics} onChange={setHaptics} label="Haptic feedback (vibration)" />
           <Toggle checked={pixelCursor} onChange={setPixelCursor} label="Pixel cursor" />
         </div>
       </section>

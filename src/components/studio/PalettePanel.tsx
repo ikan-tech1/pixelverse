@@ -9,7 +9,7 @@ function normalizeHex(c: string): string {
   return c.length === 9 ? c.slice(0, 7) : c;
 }
 
-export function PalettePanel() {
+export function PalettePanel({ bare }: { bare?: boolean } = {}) {
   const palette = useEditor((s) => s.doc.palette);
   const primaryIndex = useEditor((s) => s.primaryIndex);
   const setPrimaryIndex = useEditor((s) => s.setPrimaryIndex);
@@ -21,7 +21,7 @@ export function PalettePanel() {
   const current = palette[primaryIndex] ?? '#000000';
 
   return (
-    <div className="palette-panel px-panel">
+    <div className={cn('palette-panel', !bare && 'px-panel')}>
       <div className="panel-head">
         <PixelIcon name="spark" size={14} />
         <span className="eyebrow">Palette</span>
