@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useEditor } from '@/store/editor';
-import { compositeFrame } from '@/pixel/composite';
+import { compositeFrame, toImageData } from '@/pixel/composite';
 import { PixelIcon } from '@/components/ui/PixelIcon';
 
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
@@ -53,7 +53,7 @@ export function PixelCanvas() {
     }
     const rgba = compositeFrame(doc, doc.activeFrame, rgbaRef.current);
     const ctx = canvas.getContext('2d');
-    if (ctx) ctx.putImageData(new ImageData(rgba, doc.width, doc.height), 0, 0);
+    if (ctx) ctx.putImageData(toImageData(rgba, doc.width, doc.height), 0, 0);
 
     // Onion skin: previous frame faintly behind (its own canvas, dimmed via CSS).
     const onion = onionCanvasRef.current;
@@ -66,7 +66,7 @@ export function PixelCanvas() {
         }
         const orgba = compositeFrame(doc, doc.activeFrame - 1, onionRgbaRef.current);
         const octx = onion.getContext('2d');
-        if (octx) octx.putImageData(new ImageData(orgba, doc.width, doc.height), 0, 0);
+        if (octx) octx.putImageData(toImageData(orgba, doc.width, doc.height), 0, 0);
         onion.style.display = 'block';
       } else {
         onion.style.display = 'none';

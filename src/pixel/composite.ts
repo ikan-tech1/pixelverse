@@ -49,8 +49,17 @@ export function compositeFrame(
   return rgba;
 }
 
+/**
+ * Build an ImageData from straight RGBA bytes. The cast bridges a TS lib
+ * generic mismatch (Uint8ClampedArray<ArrayBufferLike> vs the ImageData ctor's
+ * Uint8ClampedArray<ArrayBuffer>); the backing buffer is always an ArrayBuffer
+ * at runtime.
+ */
+export function toImageData(data: Uint8ClampedArray, width: number, height: number): ImageData {
+  return new ImageData(data as Uint8ClampedArray<ArrayBuffer>, width, height);
+}
+
 /** Convenience for canvas code (needs a DOM ImageData). */
 export function compositeToImageData(doc: PixelDoc, frame: number): ImageData {
-  const rgba = compositeFrame(doc, frame);
-  return new ImageData(rgba, doc.width, doc.height);
+  return toImageData(compositeFrame(doc, frame), doc.width, doc.height);
 }

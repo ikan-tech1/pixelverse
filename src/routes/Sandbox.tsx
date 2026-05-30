@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toImageData } from '@/pixel/composite';
 import { cn } from '@/lib/cn';
 import { useSfx } from '@/lib/useSfx';
 
@@ -230,7 +231,7 @@ export default function Sandbox() {
       data[o + 2] = col[2];
       data[o + 3] = e === SMOKE ? 165 : 255;
     }
-    ctx.putImageData(new ImageData(data, COLS, ROWS), 0, 0);
+    ctx.putImageData(toImageData(data, COLS, ROWS), 0, 0);
   }, []);
 
   useEffect(() => {

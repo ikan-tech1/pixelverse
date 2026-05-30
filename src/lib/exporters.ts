@@ -1,6 +1,6 @@
 import { GIFEncoder, quantize, applyPalette } from 'gifenc';
 import type { PixelDoc } from '@/pixel/types';
-import { compositeFrame } from '@/pixel/composite';
+import { compositeFrame, toImageData } from '@/pixel/composite';
 
 /** Render one frame to a 1:1 canvas (palette-composited). */
 export function renderFrame(doc: PixelDoc, frame: number): HTMLCanvasElement {
@@ -9,7 +9,7 @@ export function renderFrame(doc: PixelDoc, frame: number): HTMLCanvasElement {
   base.height = doc.height;
   const ctx = base.getContext('2d')!;
   const rgba = compositeFrame(doc, frame);
-  ctx.putImageData(new ImageData(rgba, doc.width, doc.height), 0, 0);
+  ctx.putImageData(toImageData(rgba, doc.width, doc.height), 0, 0);
   return base;
 }
 
@@ -76,5 +76,5 @@ export async function exportGifBlob(doc: PixelDoc, scale = 8): Promise<Blob> {
     });
   }
   enc.finish();
-  return new Blob([enc.bytes()], { type: 'image/gif' });
+  return new Blob([enc.bytes() as Uint8Array<ArrayBuffer>], { type: 'image/gif' });
 }

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { quantize, applyPalette } from 'gifenc';
 import { createDoc, activeCel } from '@/pixel/doc';
 import { rgbaToHex } from '@/pixel/color';
-import { compositeFrame } from '@/pixel/composite';
+import { compositeFrame, toImageData } from '@/pixel/composite';
 import type { PixelDoc } from '@/pixel/types';
 import { useEditor } from '@/store/editor';
 import { PixelIcon } from '@/components/ui/PixelIcon';
@@ -60,7 +60,7 @@ export default function Pixelizer() {
     cv.style.width = `${d.width * scale}px`;
     cv.style.height = `${d.height * scale}px`;
     const rgba = compositeFrame(d, 0);
-    cv.getContext('2d')!.putImageData(new ImageData(rgba, d.width, d.height), 0, 0);
+    cv.getContext('2d')!.putImageData(toImageData(rgba, d.width, d.height), 0, 0);
   }
 
   function onFile(file: File) {
